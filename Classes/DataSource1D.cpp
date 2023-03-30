@@ -38,4 +38,6 @@ int * DataSource1D::getVecteur() { return vec; }
 void DataSource1D::IncrementeCase(int val)
 {
     vec[val-1] = vec[val-1] + 1;
+
+    EffectifTotal++;
 }
