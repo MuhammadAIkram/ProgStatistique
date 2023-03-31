@@ -29,6 +29,15 @@ EtudeStatistiques1D::EtudeStatistiques1D(DataSource1D data)
     mode[2] = -1;
 
     calculeMode(data.getVecteur());
+
+    //calculer l'ecart-type
+    calculeS(data.getEffectifTotal(), data.getVecteur());
+
+    //calcule variation
+    calculeCV();
+
+    //calcule Etendue
+    calculeRange();
 }
 
 //----------------------------------------------------------------------------------
@@ -129,6 +138,60 @@ void EtudeStatistiques1D::calculeMode(int *vec)
     */
 }
 
+void EtudeStatistiques1D::calculeS(int efftotal, int *vec)
+{
+    int vecVal[50];
+
+    int i = 0;
+    int val = 1;
+
+    //nous refais le vecteur avec les valeurs tout separer mais c'est en ordres
+    while(i < efftotal)
+    {
+        int j = 0;
+
+        while(j < vec[val-1])
+        {
+            vecVal[i] = val;
+
+            j++;
+            i++;
+        }
+
+        val++;
+    }
+
+    //calculer l'ecart-type
+
+    float somme = 0.0;
+    
+    for(i = 0; i < efftotal; i++)
+    {
+        somme = somme + pow((vecVal[i] - moyenne), 2);
+    }
+
+    ecartType = sqrt(somme/efftotal);
+
+    //cout << "Ecart-type = " << ecartType << endl;
+}
+
+void EtudeStatistiques1D::calculeCV()
+{
+    coefDeVariation = ecartType/moyenne;
+
+    //cout << "Coefficient de variation = " << coefDeVariation << endl;
+}
+
+void EtudeStatistiques1D::calculeRange()
+{
+    int min = 1;
+    int max =  10;
+
+    Etendue = max - min;
+
+    //cout << "Etendue = " << Etendue << endl;
+}
+
 //----------------------------------------------------------------------------------
 //---------		GETTER
 //----------------------------------------------------------------------------------
@@ -138,6 +201,12 @@ float EtudeStatistiques1D::getMoyenne() const { return moyenne; }
 float EtudeStatistiques1D::getMediane() const { return mediane; }
 
 int * EtudeStatistiques1D::getMode() { return mode; }
+
+float EtudeStatistiques1D::getS() {return ecartType; }
+
+float EtudeStatistiques1D::getCV() { return coefDeVariation; }
+
+int EtudeStatistiques1D::getRange() { return Etendue; }
 
 //----------------------------------------------------------------------------------
 //---------		AUTRES METHODES
@@ -155,5 +224,8 @@ void EtudeStatistiques1D::Affiche()
         cout << "Mode " << i+1 << ": " << mode[i] << endl;
         i++;
     }
+    cout << "Ecart-Type: " << getS() << endl;
+    cout << "Coefficient de variation : " << getCV() << " (" << getCV()*100 << "%)" << endl;
+    cout << "Etendue: " << getRange() << endl;
     cout << "-----------------------------------------------------------------------------" << endl << endl;
 }
