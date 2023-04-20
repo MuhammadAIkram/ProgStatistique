@@ -37,7 +37,7 @@ EtudeStatistiques1D::EtudeStatistiques1D(DataSource1D data)
     calculeCV();
 
     //calcule Etendue
-    calculeRange();
+    calculeRange(data.getMin(), data.getMax());
 }
 
 //----------------------------------------------------------------------------------
@@ -101,7 +101,7 @@ void EtudeStatistiques1D::calculeMediane(int efftotal, int *vec)
     {
         int i = efftotal/2;
 
-        mediane = (vecVal[i-1] + vecVal[i])/2;
+        mediane = (float)(vecVal[i-1] + vecVal[i])/2;
     }
 
     //cout << "Mediane = " << mediane << endl;
@@ -182,14 +182,11 @@ void EtudeStatistiques1D::calculeCV()
     //cout << "Coefficient de variation = " << coefDeVariation << endl;
 }
 
-void EtudeStatistiques1D::calculeRange()
+void EtudeStatistiques1D::calculeRange(int min, int max)
 {
-    int min = 1;
-    int max =  10;
-
     Etendue = max - min;
 
-    //cout << "Etendue = " << Etendue << endl;
+    //cout << "Etendue = " << Etendue << " Valeur min/max = " << min << "/" << max <<  endl;
 }
 
 //----------------------------------------------------------------------------------

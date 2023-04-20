@@ -32,7 +32,7 @@ class EtudeStatistiques1D
         void calculeMode(int *);
         void calculeS(int, int*);
         void calculeCV();
-        void calculeRange();
+        void calculeRange(int, int);
 
         void Affiche();
 };
