@@ -38,6 +38,9 @@ EtudeStatistiques1D::EtudeStatistiques1D(DataSource1D data)
 
     //calcule Etendue
     calculeRange(data.getMin(), data.getMax());
+
+    //fait l'affichage
+    Affiche();
 }
 
 //----------------------------------------------------------------------------------

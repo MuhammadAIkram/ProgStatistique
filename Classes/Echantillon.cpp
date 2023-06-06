@@ -74,8 +74,6 @@ Echantillon::Echantillon(string nomFichier)
 
             EtudeStatistiques1D etude(data);
 
-            etude.Affiche();
-
             fichier.close();
         }
 
